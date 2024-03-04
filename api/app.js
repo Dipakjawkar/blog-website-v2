@@ -8,6 +8,9 @@ require('./database/connect')
 
 const app = express()
 const PORT = process.env.PORT
+
+// For render react js in express server !
+app.use(express.static(path.resolve(__dirname,'build')))
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors())
