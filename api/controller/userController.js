@@ -73,7 +73,13 @@ exports.userSignin = async (req, res) => {
         const token = await jwt.sign(isUser.email, process.env.JWT_TOKEN)
         await userModel.updateOne({ "email": email }, { $set: { "token": token } })
 
-        return res.status(200).cookie('token', token).send({
+        return res.status(200).cookie('token', token ,  {
+                        httpOnly: false,
+                        sameSite: false,
+                        signed: false,
+                        secure: false,
+                        encode: String
+                    }).send({
             success: true,
             message: 'user login successfull',
             "token": token,
